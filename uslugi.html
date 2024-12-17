@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+
+
+
+
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница студента</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0; /* Начальная непрозрачность */
+    transition: opacity 0.5s ease; /* Плавный переход */
+}
+
+.modal.show {
+    display: block; /* Показываем модальное окно */
+    opacity: 1; /* Полная непрозрачность */
+}
+
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(0.8); /* Начальный масштаб для появления */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Плавный переход */
+    opacity: 0; /* Начальная непрозрачность для контента */
+}
+
+.modal.show .modal-content {
+    transform: scale(1); /* Конечный масштаб */
+    opacity: 1; /* Полная непрозрачность */
+}
+
+.modal.hide .modal-content {
+    transform: scale(0.8); /* Уменьшение при закрытии */
+    opacity: 0; /* Затухание при закрытии */
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Логотип" width="100">
+        <div>
+            <p>Группа: ЭФБО-07-23</p>
+            <p>ФИО: Черний Глеб Александрович</p>
+        </div>
+    </div>
+    <div class="tabs">
+        <div class="tab" onclick="openPage('index.html')">Главная</div>
+        <div class="tab" onclick="openPage('first_sem_page.html')">Первый семестр</div>
+        <div class="tab">Второй семестр</div>
+        <div class="tab">Услуги</div>
+
+    </div>
+    <div class="sidebarr">
+        <h3>Навигация</h3>
+        <div class="nav-item" onclick="jumpToSection('frontend')"><strong>Фронт энд</strong></div>
+        <div class="nav-item" onclick="jumpToSection('backend')"><strong>Бэк энд</strong></div>
+    </div>
+    <div class="content">
+
+        <h1 style="margin-left: 10px;">Разработка Вэб-приложений</h1>
+        <div class="image-gallery">
+            <div class="image-item">
+                <img src="1.jpg" alt="Описание изображения 1" width="150" height="150">
+                <p>Сайт-визитка</p>
+                <button class="order-button" onclick="openModal('Сайт-визитка')">Заказать</button>
+            </div>
+            <div class="image-item">
+                <img src="2.jpg" alt="Описание изображения 2" width="150" height="150">
+                <p>Корпоративный сайт</p>
+                <button class="order-button" onclick="openModal('Корпоративный сайт')">Заказать</button>
+            </div>
+            <div class="image-item">
+                <img src="3.jpg" alt="Описание изображения 3" width="150" height="150">
+                <p>Интернет магазин</p>
+                <button class="order-button" onclick="openModal('Интернет магазин')">Заказать</button>
+            </div>
+        </div>
+
+        <p>aasdasd sad asd asdas d as ассказать о ваших проекasdas as das asdawa sd wa das  dwa d wad sa dasdwa  sdwa sdwa sdwa sdwa dasdwa sdwasdwasdwas dwasdwasdwasdawsdwasdwasdwasdw awsdwasdwasdwasdwasdwasdasdwasdwasdwasdwasdwasdwasdwasdwasdwasdwasdwasdwasdawsdwasировать.</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; Черний Глеб 2024</p>
+        <p>
+            <a href="https://vk.com/feed">Социальная сеть 1</a> |
+            <a href="https://vk.com/feed">Социальная сеть 2</a> |
+            <a href="https://vk.com/feed">Социальная сеть 3</a>
+        </p>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span onclick="closeModal()" style="cursor:pointer; float:right;">&times;</span>
+            <h2>Заполните данные</h2>
+            <form id="dataForm">
+                <label for="name">Имя:</label><br>
+                <input type="text" id="name" required><br>
+                <label for="email">E-mail:</label><br>
+                <input type="email" id="email" required><br>
+                <select id="country" required>
+                    <option value="">Выберите страну</option>
+                    <option value="Россия">Россия</option>
+                    <option value="Украина">Украина</option>
+                    <option value="Беларусь">Беларусь</option>
+                    <!-- Add more countries here -->
+                </select><br>
+                
+                <label for="date">Дата:</label><br>
+                <input type="date" id="date" required><br>
+                <label for="comment">Комментарий:</label><br>
+                <textarea id="comment" rows="4" required></textarea><br><br>
+                <button type="button" onclick="submitData()">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+function openModal() {
+    const modal = document.getElementById("myModal");
+    modal.style.display = "block"; // Сначала показываем модальное окно
+    setTimeout(() => {
+        modal.classList.add("show"); // Затем добавляем класс для показа
+    }, 10); // Небольшая задержка для активации CSS перехода
+}
+
+function closeModal() {
+    const modal = document.getElementById("myModal");
+    modal.classList.remove("show"); // Убираем класс для показа
+    modal.classList.add("hide"); // Добавляем класс для закрытия
+
+    setTimeout(() => {
+        modal.style.display = "none"; // Скрываем модальное окно после анимации
+        modal.classList.remove("hide"); // Убираем класс закрытия
+    }, 500); // Время, соответствующее времени анимации
+}
+    function submitData() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const country = document.getElementById("country").value.trim();
+    const date = document.getElementById("date").value;
+    const comment = document.getElementById("comment").value.trim();
+
+    // Проверка на корректность данных
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Регулярное выражение для проверки email
+    let errorMessage = "";
+
+    // Проверка на пустые поля
+    if (!name) {
+        errorMessage += "Поле 'Имя' не заполнено.\n";
+    }
+    if (!email) {
+        errorMessage += "Поле 'E-mail' не заполнено.\n";
+    }
+    if (!country) {
+        errorMessage += "Поле 'Страна' не заполнено.\n";
+    }
+    if (!date) {
+        errorMessage += "Поле 'Дата' не заполнено.\n";
+    }
+    if (!comment) {
+        errorMessage += "Поле 'Комментарий' не заполнено.\n";
+    }
+
+    // Проверка формата электронной почты
+    if (email && !emailPattern.test(email)) {
+        errorMessage += "Пожалуйста, введите корректный E-mail.\n";
+    }
+
+    // Если есть ошибки, выводим их
+    if (errorMessage) {
+        alert(errorMessage);
+        return;
+    }
+
+    // Если все проверки пройдены
+    alert(`Спасибо, ${name}!\nВаши данные:\nE-mail: ${email}\nСтрана: ${country}\nДата: ${date}\nКомментарий: ${comment}`);
+    closeModal(); // Закрываем модальное окно после отправки данных
+}
+function openPage(page) {
+    window.location.href = page; // Замените на нужный URL
+}
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>
